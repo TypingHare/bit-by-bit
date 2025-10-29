@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>How A Webpage Work</title>
+    <link rel="stylesheet" href="css/vendor/default.min.css" />
+    <link rel="stylesheet" href="css/vendor/atom-one-light.min.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/demo.css" />
+  </head>
+  <body>
+    <div id="left-pane">
+      <div id="demo">
+        <!-- HTML content will be injected by JavaScript -->
+      </div>
+      <div id="controls">
+        <div>
+          <img id="icon-html" src="img/html.icon.png" alt="HTML Icon" />
+        </div>
+        <div>
+          <img id="icon-css" src="img/css.icon.png" alt="CSS Icon" />
+        </div>
+        <div>
+          <img id="icon-js" src="img/js.icon.png" alt="JavaScript Icon" />
+        </div>
+      </div>
+    </div>
+    <div id="right-pane">
+      <div id="code-block-html" class="code-block hidden">
+        <img src="img/html.icon.png" alt="HTML Icon" />
+        <pre><code class="language-html" id="code-html"></code></pre>
+      </div>
+      <div id="code-block-css" class="code-block hidden">
+        <img src="img/css.icon.png" alt="CSS Icon" />
+        <pre><code class="language-css" id="code-css"></code></pre>
+      </div>
+      <div id="code-block-js" class="code-block hidden">
+        <img src="img/js.icon.png" alt="JavaScript Icon" />
+        <pre><code class="language-js" id="code-js"></code></pre>
+      </div>
+    </div>
+
+    <script src="js/vendor/highlight.min.js"></script>
+    <script src="js/code.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

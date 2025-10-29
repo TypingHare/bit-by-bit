@@ -1,213 +1,216 @@
-const CODE_HTML_0 = `
-<div>
-  <h1>Login</h1>
-  <form>
-    <div class="field">
-      <label for="username">Username</label>
-      <input 
-        class="input" 
-        id="username"
-        name="username"
-        placeholder="Type your username"
-      />
-    </div>
+/**
+ * Retrieves an HTML element by its ID.
+ *
+ * @param {string} elementId - The ID of the HTML element to retrieve.
+ * @returns {HTMLElement} The HTML element with the specified ID.
+ * @throws Will throw an error if the element is not found.
+ */
+function getElement(elementId) {
+  const element = document.getElementById(elementId);
 
-    <div class="field">
-      <label for="password">Password</label>
-      <input class="input" id="password" name="password" type="password"
-             placeholder="Type your password" />
-    </div>
-
-    <div class="row">
-      <a class="link" href="#" aria-label="Forgot password">Forgot password?</a>
-    </div>
-
-    <button id="submit-button" class="btn">LOGIN</button>
-  </form>
-</div>
-`;
-
-const CODE_HTML_1 = `
-<div class="login-container">
-  <h1>Login</h1>
-  <form>
-    <div class="field">
-      <label for="username">Username</label>
-      <input 
-        class="input" 
-        id="username"
-        name="username"
-        placeholder="Type your username"
-      />
-    </div>
-
-    <div class="field">
-      <label for="password">Password</label>
-      <input class="input" id="password" name="password" type="password"
-             placeholder="Type your password" />
-    </div>
-
-    <div class="row">
-      <a class="link" href="#" aria-label="Forgot password">Forgot password?</a>
-    </div>
-
-    <button id="submit-button" class="btn">LOGIN</button>
-  </form>
-</div>
-`;
-
-const CODE_HTML_2 = `
-<div class="login-container rounded-corners">
-  <h1>Login</h1>
-  <form>
-    <div class="field">
-      <label for="username">Username</label>
-      <input 
-        class="input" 
-        id="username"
-        name="username"
-        placeholder="Type your username"
-      />
-    </div>
-
-    <div class="field">
-      <label for="password">Password</label>
-      <input class="input" id="password" name="password" type="password"
-             placeholder="Type your password" />
-    </div>
-
-    <div class="row">
-      <a class="link" href="#" aria-label="Forgot password">Forgot password?</a>
-    </div>
-
-    <button class="btn">LOGIN</button>
-  </form>
-</div>
-`;
-
-const CODE_HTML_3 = `
-<div class="login-container rounded-corners colorful">
-  <h1>Login</h1>
-  <form>
-    <div class="field">
-      <label for="username">Username</label>
-      <input 
-        class="input" 
-        id="username"
-        name="username"
-        placeholder="Type your username"
-      />
-    </div>
-
-    <div class="field">
-      <label for="password">Password</label>
-      <input class="input" id="password" name="password" type="password"
-             placeholder="Type your password" />
-    </div>
-
-    <div class="row">
-      <a class="link" href="#" aria-label="Forgot password">Forgot password?</a>
-    </div>
-
-    <button class="btn">LOGIN</button>
-  </form>
-</div>
-`;
-
-const CSS_CODE = `
-h1 {
-  margin:0 0 28px;
-  text-align:center;
-  font-size:clamp(22px, 3.4vw, 34px);
-  letter-spacing:.3px;
-}
-`;
-
-const JS_CODE = `
-`;
-
-function inject_html(target_element_id, html_code) {
-  const target_element = document.getElementById(target_element_id);
-
-  if (!target_element) {
-    throw new Error("Target element not found: " + target_element_id);
+  if (!element) {
+    throw new Error("Element not found: " + elementId);
   }
 
-  target_element.innerHTML = html_code;
-}
-
-function inject_code(target_element_id, code) {
-  const target_element = document.getElementById(target_element_id);
-
-  if (!target_element) {
-    throw new Error("Target element not found: " + target_element_id);
-  }
-
-  target_element.textContent = code;
+  return element;
 }
 
 /**
- * Injects the demo code into the respective HTML elements.
- * @param {string} phase - The phase of the demo, which can be:
- *   - "show-html": Show the HTML code.
- *   - "center-elements": Center the elements using CSS.
+ * Injects HTML code into a specified target element by its ID.
+ *
+ * @param {string} targetElementId - The ID of the target HTML element.
+ * @param {string} htmlCode - The HTML code to be injected.
+ * @throws Will throw an error if the target element is not found.
  */
-function update_demo(phase) {
-  switch (phase) {
-    case phases[1]:
-      inject_html("login-demo", CODE_HTML_0);
-      inject_code("code-html", CODE_HTML_0);
-      break;
-    case phases[2]:
-      inject_html("login-demo", CODE_HTML_1);
-      inject_code("code-html", CODE_HTML_1);
-      break;
-    case phases[3]:
-      inject_html("login-demo", CODE_HTML_2);
-      inject_code("code-html", CODE_HTML_2);
-      break;
-    case phases[4]:
-      inject_html("login-demo", CODE_HTML_3);
-      inject_code("code-html", CODE_HTML_3);
-      break;
+function injectHtml(targetElementId, htmlCode) {
+  getElement(targetElementId).innerHTML = htmlCode;
+}
+
+/**
+ * Injects code as text into a specified target element by its ID.
+ * @param {string} targetElementId - The ID of the target HTML element.
+ * @param {string} code - The code to be injected as text.
+ * @throws Will throw an error if the target element is not found.
+ */
+function injectCode(targetElementId, code) {
+  getElement(targetElementId).textContent = code;
+}
+
+class Phase {
+  /**
+   * Creates an instance of the Phase class.
+   *
+   * @param {string} htmlCode - The HTML code for this phase.
+   * @param {string} cssCode - The CSS code for this phase.
+   * @param {string} jsCode - The JavaScript code for this phase.
+   */
+  constructor(htmlCode = "", cssCode = "", jsCode = "") {
+    this.htmlCode = htmlCode;
+    this.cssCode = cssCode;
+    this.jsCode = jsCode;
   }
 }
 
-let current_phase_index = 0;
-const phases = ["nothing", "show-html", "center-elements", "rounded-corners"];
+/**
+ * Switches the application to a specified phase by injecting its HTML, CSS,
+ * and JavaScript code into designated elements.
+ *
+ * @param {Phase} phase - The phase to switch to.
+ */
+function switchPhase(phase) {
+  const { htmlCode, cssCode, jsCode } = phase;
 
-document.getElementById("icon-html").onclick = function () {
-  if (current_phase_index == 0) {
-    update_demo(phases[1]);
-    current_phase_index = 1;
+  injectHtml("demo", htmlCode);
 
-    document.getElementById("submit-button").onclick = function (e) {
-      e.preventDefault();
-    };
+  map = {
+    "code-html": htmlCode,
+    "code-css": cssCode,
+    "code-js": jsCode,
+  };
 
-    const icon = document.getElementById("icon-html");
-    icon.style.filter =
-      "drop-shadow(0 0 20px rgba(255, 102, 0, 0.9)) drop-shadow(0 0 50px rgba(255, 102, 0, 0.8))";
+  for (const [elementId, code] of Object.entries(map)) {
+    injectCode(elementId, code);
+    delete getElement(elementId).dataset.highlighted;
+  }
+
+  hljs.highlightAll();
+}
+
+const phases = [
+  new Phase(),
+  new Phase(CODE_HTML_1),
+  new Phase(CODE_HTML_2, CODE_CSS_2),
+  new Phase(CODE_HTML_3, CODE_CSS_3),
+  new Phase(CODE_HTML_4, CODE_CSS_4),
+  new Phase(CODE_HTML_5, CODE_CSS_5, CODE_JS_5),
+];
+
+/**
+ * The current index of the phase in the phases array.
+ */
+let currentPhaseIndex = 0;
+
+/**
+ * Proceeds to the next phase if available.
+ *
+ * @throws Will throw an error if there is no next phase.
+ */
+function proceedToNextPhase() {
+  if (currentPhaseIndex < phases.length - 1) {
+    currentPhaseIndex++;
+    switchPhase(phases[currentPhaseIndex]);
+  } else {
+    throw new Error("No more phases available.");
+  }
+}
+
+/**
+ * Applies a glow effect to an icon using CSS drop-shadow filters.
+ *
+ * @param {string} iconId - The ID of the icon element.
+ * @param {string} color - The RGB color value for the glow effect (e.g.,
+ *   "255, 102, 0").
+ * @param {Array} renderList - An array of arrays, each containing [radiusPx,
+ *   alpha] for the glow layers.
+ */
+function iconGlowEffect(iconId, color, renderList) {
+  const icon = getElement(iconId);
+
+  let filterValue = "";
+  for (let i = 0; i < renderList.length; i++) {
+    radiusPx = renderList[i][0];
+    alpha = renderList[i][1];
+    filterValue += `drop-shadow(0 0 ${radiusPx}px rgba(${color}, ${alpha})) `;
+  }
+
+  icon.style.filter = filterValue;
+}
+
+function removeHiddenClass(elementId) {
+  getElement(elementId).classList.remove("hidden");
+}
+
+function disableSubmitButton() {
+  getElement("submit-button").onclick = (e) => e.preventDefault();
+}
+
+getElement("icon-html").onclick = function () {
+  if (currentPhaseIndex === 0) {
+    proceedToNextPhase();
+    iconGlowEffect("icon-html", "255, 102, 0", [
+      [15, 0.5],
+      [30, 0.7],
+    ]);
+    removeHiddenClass("code-block-html");
+    disableSubmitButton();
+  } else {
+    console.warn("HTML phase is not available at this time.");
   }
 };
 
-document.getElementById("icon-css").onclick = function () {
-  if (current_phase_index == 1) {
-    update_demo(phases[2]);
-    current_phase_index = 2;
-    const icon = document.getElementById("icon-css");
-    icon.style.filter = "drop-shadow(0 0 20px rgba(0, 153, 255, 0.8))";
-  } else if (current_phase_index == 2) {
-    update_demo(phases[3]);
-    current_phase_index = 3;
-    const icon = document.getElementById("icon-css");
-    icon.style.filter =
-      "drop-shadow(0 0 20px rgba(0, 153, 255, 0.7)) drop-shadow(0 0 35px rgba(0, 153, 255, 0.7))";
-  } else if (current_phase_index == 3) {
-    update_demo(phases[4]);
-    current_phase_index = 4;
-    const icon = document.getElementById("icon-css");
-    icon.style.filter =
-      "drop-shadow(0 0 20px rgba(0, 153, 255, 0.7)) drop-shadow(0 0 60px rgba(0, 153, 255, 0.7))";
+getElement("icon-css").onclick = function () {
+  if (currentPhaseIndex === 1) {
+    proceedToNextPhase();
+    iconGlowEffect("icon-css", "0, 153, 255", [[10, 0.5]]);
+    removeHiddenClass("code-block-css");
+    disableSubmitButton();
+  } else if (currentPhaseIndex === 2) {
+    proceedToNextPhase();
+    iconGlowEffect("icon-css", "0, 153, 255", [
+      [15, 0.5],
+      [30, 0.7],
+    ]);
+    disableSubmitButton();
+  } else if (currentPhaseIndex === 3) {
+    proceedToNextPhase();
+    iconGlowEffect("icon-css", "0, 153, 255", [
+      [25, 0.7],
+      [50, 0.9],
+    ]);
+    disableSubmitButton();
+  } else {
+    console.warn("CSS phase is not available at this time.");
+  }
+};
+
+getElement("icon-js").onclick = function () {
+  if (currentPhaseIndex === 4) {
+    proceedToNextPhase();
+    iconGlowEffect("icon-js", "255, 204, 0", [
+      [15, 0.5],
+      [30, 0.7],
+    ]);
+
+    removeHiddenClass("code-block-js");
+    getElement("submit-button").onclick = function (event) {
+      event.preventDefault();
+
+      const username = getElement("username").value;
+      const password = getElement("password").value;
+
+      alert(
+        "FORM SUBMITTED!\n\n" +
+          `Your username is: ${username}\n` +
+          `Your password is: ${password}`,
+      );
+    };
+  }
+};
+
+document.onkeydown = function (event) {
+  const key = event.key.toLowerCase();
+
+  if (key === "backspace") {
+    event.preventDefault();
+    if (currentPhaseIndex > 0) {
+      switchPhase(phases[--currentPhaseIndex]);
+    }
+  }
+
+  if (key === " ") {
+    event.preventDefault();
+    if (currentPhaseIndex < phases.length - 1) {
+      switchPhase(phases[++currentPhaseIndex]);
+    }
   }
 };

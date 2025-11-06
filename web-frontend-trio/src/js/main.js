@@ -201,6 +201,10 @@ document.onkeydown = function (event) {
   const key = event.key.toLowerCase();
 
   if (key === "backspace") {
+    if (["username", "password"].includes(event.target.id)) {
+      return;
+    }
+
     event.preventDefault();
     if (currentPhaseIndex > 0) {
       switchPhase(phases[--currentPhaseIndex]);

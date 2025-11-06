@@ -290,8 +290,6 @@ const CODE_CSS_5 = CODE_CSS_4;
 
 const CODE_JS_5 = `
 getElement("submit-button").onclick = function (event) {
-  event.preventDefault();
-
   const username = getElement("username").value;
   const password = getElement("password").value;
   alert(
@@ -300,4 +298,14 @@ getElement("submit-button").onclick = function (event) {
       \`Your password is: \${password}\`,
   );
 };
+
+function getElement(elementId) {
+  const element = document.getElementById(elementId);
+
+  if (!element) {
+    throw new Error("Element not found: " + elementId);
+  }
+
+  return element;
+}
 `;

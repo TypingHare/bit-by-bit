@@ -134,6 +134,17 @@ function disableSubmitButton() {
   getElement("submit-button").onclick = (e) => e.preventDefault();
 }
 
+function openFullscreen() {
+  const element = document.documentElement;
+  if (element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if (element.webkitRequestFullscreen) {
+    element.webkitRequestFullscreen();
+  } else {
+    console.error("Full screen doesn't support in this browser!");
+  }
+}
+
 getElement("icon-html").onclick = function () {
   if (currentPhaseIndex === 0) {
     proceedToNextPhase();
@@ -198,23 +209,26 @@ getElement("icon-js").onclick = function () {
 };
 
 document.onkeydown = function (event) {
-  const key = event.key.toLowerCase();
-
-  if (key === "backspace") {
-    if (["username", "password"].includes(event.target.id)) {
-      return;
-    }
-
-    event.preventDefault();
-    if (currentPhaseIndex > 0) {
-      switchPhase(phases[--currentPhaseIndex]);
-    }
+  if (["username", "password"].includes(event.target.id)) {
+    return;
   }
 
-  if (key === " ") {
-    event.preventDefault();
-    if (currentPhaseIndex < phases.length - 1) {
-      switchPhase(phases[++currentPhaseIndex]);
-    }
+  const key = event.key.toLowerCase();
+  switch (key) {
+    case "backspace":
+      event.preventDefault();
+      if (currentPhaseIndex > 0) {
+        switchPhase(phases[--currentPhaseIndex]);
+      }
+
+      break;
+    case " ":
+      event.preventDefault();
+      if (currentPhaseIndex < phases.length - 1) {
+        switchPhase(phases[++currentPhaseIndex]);
+      }
+      break;
+    case "enter":
+      openFullscreen();
   }
 };

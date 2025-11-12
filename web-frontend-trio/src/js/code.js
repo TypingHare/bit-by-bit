@@ -292,6 +292,7 @@ const CODE_JS_5 = `
 getElement("submit-button").onclick = function (event) {
   const username = getElement("username").value;
   const password = getElement("password").value;
+
   alert(
     "FORM SUBMITTED!\\n\\n" +
       \`Your username is: \${username}\\n\` +

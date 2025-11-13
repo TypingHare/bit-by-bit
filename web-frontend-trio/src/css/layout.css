@@ -77,15 +77,27 @@ body > div {
   height: 100%;
 }
 
+#copyright > div {
+  font-size: 1.5em;
+}
+
 #demo {
-  flex: 3;
+  flex: 12;
   border-bottom: 1px solid var(--divider-color);
 }
 
 #controls {
-  flex: 1;
+  flex: 4;
   display: flex;
   gap: 1em;
+}
+
+#copyright {
+  flex: 1;
+  display: flex;
+  border-top: 1px solid var(--divider-color);
+  justify-content: center;
+  align-items: center;
 }
 
 #controls > div {
